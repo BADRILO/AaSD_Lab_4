@@ -12,6 +12,7 @@ namespace Lab_4
         private int e_count = 0;
         private Edge[] adjacencyList;
 
+
         public Graph()
         {
             Console.Write("Enter number of graph vertices: ");
@@ -84,6 +85,75 @@ namespace Lab_4
                 printList(i);
             }
         }
+
+        public void Kruskal()
+        {
+            //Creating and initializing
+            List<Edge> edge_list = new(e_count);  //list of edges in graph
+            List<Edge> MST_edges = new(v_count - 1); //list of edges in MST
+            int[] component = new int[v_count + 1]; //array to keep numbers of connected components to avoid cycles
+
+            //initial int[] component
+            //Each vertex is treated as a separate component.
+            for (int i = 1; i <= v_count; i++)
+            {
+                component[i] = i;
+            } 
+
+            Edge current;
+            //fill edge_list
+            for(int i = 1; i <= v_count; i++)
+            {
+                current = adjacencyList[i];
+
+                while (current != null)
+                {
+                    if (i < current.v_end)
+                    {
+                        edge_list.Add(new Edge(current.v_start, current.v_end, current.weight));
+                    }
+                    current = current.next;
+                }
+            }
+
+            //Sorting edges by weights
+            edge_list.Sort(new Comparison<Edge>((e1, e2) => e1.weight - e2.weight));
+
+            //Selecting edges and including into MST_edges
+            for (int i = 0; i < edge_list.Count && MST_edges.Count < v_count - 1; i++)
+            {
+                int a = edge_list[i].v_start;
+                int b = edge_list[i].v_end;
+
+                //both vertices belong to different components (to avoid cycles)
+                if (component[a] != component[b])
+                { 
+                    MST_edges.Add(edge_list[i]);
+
+                    //updating the list of connected components
+                    int keep = component[b];
+
+                    for (int j = 1; j <= v_count; j++)
+                    {
+                        if (component[j] == keep)
+                        {
+                            component[j] = component[a];
+                        }
+                    }         
+                }
+            }
+
+            //Printing
+            int MST_len = 0;
+            Console.WriteLine(" \nList of edges in MST: ");
+            for (int i = 0; i < MST_edges.Count; i++)
+            {
+                MST_len += MST_edges[i].weight;
+                Console.WriteLine($" {MST_edges[i].v_start, 2},{ MST_edges[i].v_end, 2} edge weight: {MST_edges[i].weight}");
+            }
+            Console.WriteLine($"MST lenght: {MST_len}\n\n");
+        }
+
         private void printList(int i)
         {
             Edge current = adjacencyList[i];
