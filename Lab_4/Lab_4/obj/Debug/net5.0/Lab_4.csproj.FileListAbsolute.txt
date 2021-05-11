@@ -1,0 +1,16 @@
+E:\ХНУРЕ\2 семестр\АтСД\Labs_Code\Lab4\Lab_4\Lab_4\bin\Debug\net5.0\Lab_4.exe
+E:\ХНУРЕ\2 семестр\АтСД\Labs_Code\Lab4\Lab_4\Lab_4\bin\Debug\net5.0\Lab_4.deps.json
+E:\ХНУРЕ\2 семестр\АтСД\Labs_Code\Lab4\Lab_4\Lab_4\bin\Debug\net5.0\Lab_4.runtimeconfig.json
+E:\ХНУРЕ\2 семестр\АтСД\Labs_Code\Lab4\Lab_4\Lab_4\bin\Debug\net5.0\Lab_4.runtimeconfig.dev.json
+E:\ХНУРЕ\2 семестр\АтСД\Labs_Code\Lab4\Lab_4\Lab_4\bin\Debug\net5.0\Lab_4.dll
+E:\ХНУРЕ\2 семестр\АтСД\Labs_Code\Lab4\Lab_4\Lab_4\bin\Debug\net5.0\ref\Lab_4.dll
+E:\ХНУРЕ\2 семестр\АтСД\Labs_Code\Lab4\Lab_4\Lab_4\bin\Debug\net5.0\Lab_4.pdb
+E:\ХНУРЕ\2 семестр\АтСД\Labs_Code\Lab4\Lab_4\Lab_4\obj\Debug\net5.0\Lab_4.csprojAssemblyReference.cache
+E:\ХНУРЕ\2 семестр\АтСД\Labs_Code\Lab4\Lab_4\Lab_4\obj\Debug\net5.0\Lab_4.GeneratedMSBuildEditorConfig.editorconfig
+E:\ХНУРЕ\2 семестр\АтСД\Labs_Code\Lab4\Lab_4\Lab_4\obj\Debug\net5.0\Lab_4.AssemblyInfoInputs.cache
+E:\ХНУРЕ\2 семестр\АтСД\Labs_Code\Lab4\Lab_4\Lab_4\obj\Debug\net5.0\Lab_4.AssemblyInfo.cs
+E:\ХНУРЕ\2 семестр\АтСД\Labs_Code\Lab4\Lab_4\Lab_4\obj\Debug\net5.0\Lab_4.csproj.CoreCompileInputs.cache
+E:\ХНУРЕ\2 семестр\АтСД\Labs_Code\Lab4\Lab_4\Lab_4\obj\Debug\net5.0\Lab_4.dll
+E:\ХНУРЕ\2 семестр\АтСД\Labs_Code\Lab4\Lab_4\Lab_4\obj\Debug\net5.0\ref\Lab_4.dll
+E:\ХНУРЕ\2 семестр\АтСД\Labs_Code\Lab4\Lab_4\Lab_4\obj\Debug\net5.0\Lab_4.pdb
+E:\ХНУРЕ\2 семестр\АтСД\Labs_Code\Lab4\Lab_4\Lab_4\obj\Debug\net5.0\Lab_4.genruntimeconfig.cache
