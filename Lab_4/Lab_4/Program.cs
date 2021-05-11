@@ -6,6 +6,7 @@ namespace Lab_4
     {
         static void Main(string[] args)
         {
+            Graph graph = new();
         }
     }
 }

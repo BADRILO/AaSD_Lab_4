@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace Lab_4
 {
-    class Edge
+    internal class Edge
     {
-        protected int v_start;
-        protected int v_end;
-        protected int weight;
-        protected Edge next;
+        public int v_start;
+        public int v_end;
+        public int weight;
+        public Edge next;
 
         public Edge(int start, int end, int weight)
         {
