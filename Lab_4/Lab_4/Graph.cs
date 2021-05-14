@@ -12,37 +12,48 @@ namespace Lab_4
         private int e_count = 0;
         private Edge[] adjacencyList;
 
+        public bool directed { get; private set; }
+
 
         public Graph()
         {
             Console.Write("Enter number of graph vertices: ");
-            while (!Int32.TryParse(Console.ReadLine(), out v_count))
+            while (!Int32.TryParse(Console.ReadLine(), out v_count) ||
+                    v_count < 2)
             {
                 Console.Write("\nInvalid input. Try again: ");
             }
             Console.WriteLine("\n");
 
-            //initial adjecency list
+            //initializing adjecency list
             adjacencyList = new Edge[v_count + 1];
 
-            byte directed;
+
+
+            byte type;
+
             Console.Write("Graph directed(1) or non-directed(0): ");
-            while (!Byte.TryParse(Console.ReadLine(), out directed))
+            while (!Byte.TryParse(Console.ReadLine(), out type) ||
+                   (type != 0 && type != 1))
             {
                 Console.Write("\nInvalid input. Try again: ");
             }
+            this.directed = type == 1 ? true : false;
             Console.WriteLine("\n");
+
+
 
             Console.WriteLine("Enter weights of edges, for missing edges enter 0.\n");
             for (int i = 1; i <= v_count; i++)
             {
-                if (directed == 0)
+                if (!directed)
                 {
                     for (int j = i + 1; j <= v_count; j++)
                     {
                         int weight;
-                        Console.Write($"From #{i} to #{j} weight == ");
-                        while (!Int32.TryParse(Console.ReadLine(), out weight) && weight < 0)
+                        Console.Write($"From #{i, 2} to #{j, 2} weight: ");
+                        while (!Int32.TryParse(Console.ReadLine(), out weight) ||
+                                weight < 0)
                         {
                             Console.Write("\nInvalid input. Try again: ");
                         }
@@ -61,9 +72,11 @@ namespace Lab_4
                     {
                         if (j == i) continue;
 
+
                         int weight;
-                        Console.Write($"From #{i} to #{j} weight == ");
-                        while (!Int32.TryParse(Console.ReadLine(), out weight) && weight < 0)
+
+                        Console.Write($"From #{i, 2} to #{j, 2} weight: ");
+                        while (!Int32.TryParse(Console.ReadLine(), out weight) || weight < 0)
                         {
                             Console.Write("\nInvalid input. Try again: ");
                         }
@@ -81,13 +94,15 @@ namespace Lab_4
 
             for (int i = 1; i <= v_count; i++)
             {
-                Console.Write("list for vertex #" + i + ": ");
-                printList(i);
+                Console.Write($"List for vertex # {i, 2}: ");
+                printEdgeList(i);
             }
         }
 
         public void Kruskal()
         {
+            if (directed) return; //this algorithm doesn't work with directed graphs
+
             //Creating and initializing
             List<Edge> edge_list = new(e_count);  //list of edges in graph
             List<Edge> MST_edges = new(v_count - 1); //list of edges in MST
@@ -231,7 +246,7 @@ namespace Lab_4
 
             // PRINTING SP_TREE
             Console.WriteLine(" \nList of edges in Shortest Path tree: ");
-            printEdgeList(tree_list, v_source);
+            printTreeList(tree_list, v_source);
 
 
             // EXTRACTING SPECIFIC SHORTEST PATH FROM SP_TREE
@@ -240,7 +255,7 @@ namespace Lab_4
             while (true)
             {
                 Console.Write($"Enter number of destination vertex(from 1 to {v_count}, not including source vertex)\n" +
-                              $"Enter '0' to leave this loop: ");
+                              $"Or enter '0' to leave this loop: ");
                 while (!Int32.TryParse(Console.ReadLine(), out v_destination) ||
                         v_destination == v_source ||
                         v_destination < 0 ||
@@ -270,7 +285,7 @@ namespace Lab_4
             if (answer == 1) this.Dijkstra();
         }
 
-        private void printEdgeList(Edge edge_list, int start)
+        private void printTreeList(Edge edge_list, int start)
         {
             while (edge_list != null)
             {
@@ -282,13 +297,13 @@ namespace Lab_4
             Console.WriteLine("\n");
         }
 
-        private void printList(int i)
+        private void printEdgeList(int i)
         {
             Edge current = adjacencyList[i];
 
             while (current != null)
             {
-                Console.Write($"({i}--{current.v_end}|{current.weight}), ");
+                Console.Write($"({i, 2}--{current.v_end, 2}|{current.weight, 2}), ");
                 current = current.next;
             }
             Console.WriteLine();
