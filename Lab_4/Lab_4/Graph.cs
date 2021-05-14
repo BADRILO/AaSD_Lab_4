@@ -236,39 +236,38 @@ namespace Lab_4
 
             // EXTRACTING SPECIFIC SHORTEST PATH FROM SP_TREE
             int v_destination;
-            int answer;
 
             while (true)
             {
-                Console.Write($"Enter number of destination vertex(from 1 to {v_count}, not including source vertex):");
+                Console.Write($"Enter number of destination vertex(from 1 to {v_count}, not including source vertex)\n" +
+                              $"Enter '0' to leave this loop: ");
                 while (!Int32.TryParse(Console.ReadLine(), out v_destination) ||
                         v_destination == v_source ||
-                        v_destination < 1 ||
+                        v_destination < 0 ||
                         v_destination > v_count)
                 {
                     Console.Write("\nInvalid input. Try again: ");
                 }
                 Console.WriteLine("\n");
+                if (v_destination == 0) break;
+
 
                 //finding and printing path
                 int length = findTreePath(tree_list, v_source, v_destination);
                 Console.WriteLine($"\nPath length: {length}\n");
-
-
-                //make a request to continue the algorithm or not
-                Console.Write("Continue? \nEnter '1' to continue or '0' to stop: ");
-                while (!Int32.TryParse(Console.ReadLine(), out answer) ||
-                       (answer != 0 && answer != 1))
-                {
-                    Console.Write("\nInvalid input. Try again: ");
-                }
-                Console.WriteLine("\n");
-
-                if (answer == 0)
-                {
-                    break;
-                }
             }
+            //make a request to continue
+            int answer;
+
+            Console.Write("Choose another vertex? \nEnter '1'(yes) or '0'(no): ");
+            while (!Int32.TryParse(Console.ReadLine(), out answer) ||
+                   (answer != 0 && answer != 1))
+            {
+                Console.Write("\nInvalid input. Try again: ");
+            }
+            Console.WriteLine("\n");
+
+            if (answer == 1) this.Dijkstra();
         }
 
         private void printEdgeList(Edge edge_list, int start)
@@ -399,13 +398,13 @@ namespace Lab_4
             }
             else if (current.v_start == source)
             {
-                Console.Write($"{source}==({current.weight})==>{current.v_end}");
+                Console.Write($"{source}=={current.weight}==>{current.v_end}");
                 return current.weight;
             }
             else
             {
                 int prev_edge = findTreePath(tree, source, current.v_start);
-                Console.Write($"==({current.weight - prev_edge})==>{current.v_end}");
+                Console.Write($"=={current.weight - prev_edge}==>{current.v_end}");
                 return current.weight;
             }
         }
