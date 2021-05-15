@@ -101,7 +101,12 @@ namespace Lab_4
 
         public void Kruskal()
         {
-            if (directed) return; //this algorithm doesn't work with directed graphs
+            Console.WriteLine("KRUSKAL ALGORITHM\n\n");
+            if (directed)  //this algorithm doesn't work with directed graphs
+            {
+                Console.WriteLine("Doesn't work with directed graph!\n\n");
+                return;
+            }
 
             //Creating and initializing
             List<Edge> edge_list = new(e_count);  //list of edges in graph
@@ -164,7 +169,81 @@ namespace Lab_4
             for (int i = 0; i < MST_edges.Count; i++)
             {
                 MST_len += MST_edges[i].weight;
-                Console.WriteLine($" {MST_edges[i].v_start,2},{ MST_edges[i].v_end,2} edge weight: {MST_edges[i].weight}");
+                Console.WriteLine($"{MST_edges[i].v_start,2},{ MST_edges[i].v_end,2} edge weight: {MST_edges[i].weight}");
+            }
+            Console.WriteLine($"MST lenght: {MST_len}\n\n");
+        }
+
+        public void Prim_SAR_ADJ()
+        {
+            Console.WriteLine("PRIM ALGORITHM\n\n");
+            if (directed)  //this algorithm doesn't work with directed graphs
+            {
+                Console.WriteLine("Doesn't work with directed graph!\n\n");
+                return;
+            }
+
+            // CREATING AND INITIALIZING VARIABLES AND DATA STRUCTURES
+            int start, end, weight;
+            int v_initial = 1;
+            Edge fringe_list = null;                     
+            Edge MST_list = null;                                                       
+            char[] marks_status = new char[v_count + 1]; //an array to register the status of each vertex: 'u'-unseen, 'f'-fringe, 't'-in MST
+
+            //initializing marks_status
+            for (int i = 1; i <= v_count; i++)
+                marks_status[i] = 'u';
+
+
+
+            // PROCESSING START VERTEX
+            Edge current = adjacencyList[v_initial];
+            marks_status[v_initial] = 't';
+
+            while (current != null) //creating fringe for v_initial
+            {
+                start = current.v_start;
+                end = current.v_end;
+                weight = current.weight;
+                fringe_list = insertFringeSorted(fringe_list, start, end, weight);
+                marks_status[end] = 'f';
+                current = current.next;
+            }
+
+
+            // PROCESSING OTHER VERTICES
+            while (fringe_list != null)
+            {
+                Edge new_MST_edge = fringe_list;
+                fringe_list = fringe_list.next;
+                new_MST_edge.next = MST_list;
+                MST_list = new_MST_edge;
+                marks_status[new_MST_edge.v_end] = 't';
+
+                //updating the fringe for a new node included in MST
+                current = adjacencyList[new_MST_edge.v_end];
+                while (current != null)
+                {
+                    if (marks_status[current.v_end] != 't')
+                    {
+                        start = current.v_start;
+                        end = current.v_end;
+                        weight = current.weight;
+                        fringe_list = insertFringeSorted(
+                        fringe_list, start, end, weight);
+                        marks_status[end] = 'f';
+                    }
+                    current = current.next;
+                }
+            }
+            Console.WriteLine(" \nList of edges in Prim's MST: ");
+
+            int MST_len = 0;
+            while (MST_list != null)
+            {
+                MST_len += MST_list.weight;
+                Console.WriteLine($"{MST_list.v_start,2}, {MST_list.v_end,2} edge weight: {MST_list.weight,2}");
+                MST_list = MST_list.next;
             }
             Console.WriteLine($"MST lenght: {MST_len}\n\n");
         }
@@ -190,11 +269,11 @@ namespace Lab_4
                 distance[i] = 0;
             }
 
-            Console.WriteLine("DIJKSTRA ALGORITHM\n\n");    //v_source initializing
+            Console.WriteLine("DIJKSTRA ALGORITHM\n\n");    
             Console.Write($"Enter number of source vertex(from 1 to {v_count}): ");
             while (!Int32.TryParse(Console.ReadLine(), out v_source) ||
                     v_source < 1 ||
-                    v_source > v_count)
+                    v_source > v_count)         //v_source initializing
             {
                 Console.Write("\nInvalid input. Try again: ");
             }
@@ -271,7 +350,7 @@ namespace Lab_4
                 int length = findTreePath(tree_list, v_source, v_destination);
                 Console.WriteLine($"\nPath length: {length}\n");
             }
-            //make a request to continue
+            //MAKE A REQUEST TO CONTINUE
             int answer;
 
             Console.Write("Choose another vertex? \nEnter '1'(yes) or '0'(no): ");
